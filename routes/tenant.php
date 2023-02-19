@@ -110,7 +110,7 @@ Route::group([
     });
 
     Route::name('groups.')->prefix('groups')->group(function () {
-        Route::get('', [GroupController::class, 'index'])->name('list');
+        Route::get('', [GroupController::class, 'index'])->name('index');
         Route::post('create', [GroupController::class, 'create'])->name('create');
         Route::get('/{id}', [GroupController::class, 'view'])->name('view');
         Route::delete('/{id}/delete', [GroupController::class, 'delete'])->name('delete');

@@ -30,6 +30,9 @@
                         {{ __('Employees') }}
                     </x-nav-link>
                     @endcan
+                    <x-nav-link :href="route('tenant.groups.index')" :active="request()->routeIs('tenant.groups.index')">
+                        {{ __('Groups') }}
+                    </x-nav-link>
                 </div>
             </div>
 
