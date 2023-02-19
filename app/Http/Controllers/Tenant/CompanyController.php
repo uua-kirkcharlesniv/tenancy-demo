@@ -3,7 +3,9 @@
 namespace App\Http\Controllers\Tenant;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\CreateEmployeeRequest;
 use App\Http\Requests\UpdateTenantRequest;
+use App\Models\User;
 use Auth;
 use Config;
 use Illuminate\Support\Facades\Storage;
@@ -56,5 +58,15 @@ class CompanyController extends Controller
         $tenant->delete();
 
         return Redirect::to(Config::get('app.url').'/');
+    }
+
+    public function createManager(CreateEmployeeRequest $request)
+    {
+        $user = User::create($request->validated());
+        $user->assignRole('manager');
+
+        // TODO: send invitation email
+
+        return Redirect::route('tenant.company.edit')->with('status', 'manager-added');
     }
 }
