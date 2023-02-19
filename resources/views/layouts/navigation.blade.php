@@ -18,13 +18,16 @@
                         {{ __('Dashboard') }}
                     </x-nav-link>
                     @can('manage-company')
+                    <x-nav-link :href="route('tenant.dashboard')">
+                        {{ __('Billing') }}
+                    </x-nav-link>
                     <x-nav-link :href="route('tenant.company.edit')" :active="request()->routeIs('tenant.company.edit')">
                         {{ __('Manage Company') }}
                     </x-nav-link>
                     @endcan
                     @can('manage-employees')
                     <x-nav-link :href="route('tenant.employees.edit')" :active="request()->routeIs('tenant.employees.edit')">
-                        {{ __('Manage Employees') }}
+                        {{ __('Employees') }}
                     </x-nav-link>
                     @endcan
                 </div>
