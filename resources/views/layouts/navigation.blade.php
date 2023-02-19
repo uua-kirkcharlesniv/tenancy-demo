@@ -22,6 +22,11 @@
                         {{ __('Manage Company') }}
                     </x-nav-link>
                     @endcan
+                    @can('manage-employees')
+                    <x-nav-link :href="route('tenant.employees.edit')" :active="request()->routeIs('tenant.employees.edit')">
+                        {{ __('Manage Employees') }}
+                    </x-nav-link>
+                    @endcan
                 </div>
             </div>
 

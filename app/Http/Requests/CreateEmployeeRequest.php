@@ -2,6 +2,7 @@
 
 namespace App\Http\Requests;
 
+use Hash;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Validation\Rules\Password;
 
@@ -31,5 +32,12 @@ class CreateEmployeeRequest extends FormRequest
                 'required', 'max:255', Password::defaults(),
             ],
         ];
+    }
+
+    public function prepareForValidation()
+    {
+        if($this->filled('password')) {
+            $this->merge(['password' => Hash::make($this->password)]);
+        }
     }
 }

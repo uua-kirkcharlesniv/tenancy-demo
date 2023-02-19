@@ -15,6 +15,7 @@ use App\Http\Controllers\Auth\PasswordResetLinkController;
 use App\Http\Controllers\Auth\VerifyEmailController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\Tenant\CompanyController;
+use App\Http\Controllers\Tenant\EmployeeController;
 
 /*
 |--------------------------------------------------------------------------
@@ -97,5 +98,13 @@ Route::group([
         Route::post('company/manager/create', [CompanyController::class, 'createManager'])->name('company.addManager');
         Route::delete('company/manager/{id}/delete', [CompanyController::class, 'deleteManager'])->name('company.deleteManager');
         Route::patch('company/manager/{id}/demote', [CompanyController::class, 'demoteManager'])->name('company.demoteManager');
+    });
+
+    Route::middleware('can:manage-employees')->group(function () {
+        Route::get('employees', [EmployeeController::class, 'edit'])->name('employees.edit');
+        Route::post('employees/create', [EmployeeController::class, 'create'])->name('employees.create');
+        Route::post('employees/{id}/delete', [EmployeeController::class, 'delete'])->name('employees.delete');
+        Route::middleware('can:manage-company')->patch('employees/{id}/promote', [EmployeeController::class, 'promote'])->name('employees.promote');
+        Route::post('employees/import', [EmployeeController::class, 'import'])->name('employees.import');
     });
 });
