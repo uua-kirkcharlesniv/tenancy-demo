@@ -4,9 +4,14 @@ namespace App\Http\Controllers\Tenant;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\CreateEmployeeRequest;
+use App\Http\Requests\ImportEmployeeRequest;
+use App\Imports\UsersImport;
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Validation\ValidationException;
+use Maatwebsite\Excel\Facades\Excel;
 use Redirect;
+use Validator;
 
 class EmployeeController extends Controller
 {
@@ -42,8 +47,17 @@ class EmployeeController extends Controller
         return Redirect::route('tenant.employees.edit')->with('status', 'employee-promoted');
     }
 
-    public function import()
+    public function import(ImportEmployeeRequest $request)
     {
-        dd('todo');
+        try {
+            Excel::import(new UsersImport, $request->validated('file'));
+
+            return Redirect::route('tenant.employees.edit')->with('status', 'employees-imported');
+        } catch (\Exception $e) {
+            $validator = Validator::make([], []);
+            $validator->errors()->add('file', $e->getMessage());
+
+            throw new ValidationException($validator);
+        }
     }
 }

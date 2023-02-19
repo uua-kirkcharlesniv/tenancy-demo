@@ -13,7 +13,7 @@
         <x-primary-button class="bg-blue-800">Download sample template</x-primary-button>
     </a>
 
-    <form method="post" action="{{ route('tenant.employees.import') }}" class="mt-6 space-y-6">
+    <form method="post" action="{{ route('tenant.employees.import') }}" class="mt-6 space-y-6" enctype="multipart/form-data">
         @csrf
         @method('post')
 

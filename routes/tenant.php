@@ -103,7 +103,7 @@ Route::group([
     Route::middleware('can:manage-employees')->group(function () {
         Route::get('employees', [EmployeeController::class, 'edit'])->name('employees.edit');
         Route::post('employees/create', [EmployeeController::class, 'create'])->name('employees.create');
-        Route::post('employees/{id}/delete', [EmployeeController::class, 'delete'])->name('employees.delete');
+        Route::delete('employees/{id}/delete', [EmployeeController::class, 'delete'])->name('employees.delete');
         Route::middleware('can:manage-company')->patch('employees/{id}/promote', [EmployeeController::class, 'promote'])->name('employees.promote');
         Route::post('employees/import', [EmployeeController::class, 'import'])->name('employees.import');
     });
