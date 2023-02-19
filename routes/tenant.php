@@ -95,5 +95,7 @@ Route::group([
         Route::patch('company/update-company', [CompanyController::class, 'updateCompany'])->name('company.update');
         Route::delete('company/delete', [CompanyController::class, 'destroy'])->name('company.destroy');
         Route::post('company/manager/create', [CompanyController::class, 'createManager'])->name('company.addManager');
+        Route::delete('company/manager/{id}/delete', [CompanyController::class, 'deleteManager'])->name('company.deleteManager');
+        Route::patch('company/manager/{id}/demote', [CompanyController::class, 'demoteManager'])->name('company.demoteManager');
     });
 });

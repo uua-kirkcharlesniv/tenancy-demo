@@ -32,10 +32,20 @@
                             {{ $manager->name }}
                         </th>
                         <td class="px-6 py-4">
-                            {{ $manager->name }}
+                            {{ $manager->email }}
                         </td>
                         <td class="px-6 py-4">
-                            {{-- <x-primary-button>{{ __('Delete') }}</x-primary-button> --}}
+                            <form method="POST" action="{{ route('tenant.company.deleteManager', $manager->id) }}">
+                                @csrf
+                                @method('delete')
+                                <x-primary-button>{{ __('Delete') }}</x-primary-button>
+                            </form>
+
+                            <form method="POST" action="{{ route('tenant.company.demoteManager', $manager->id) }}">
+                                @csrf
+                                @method('patch')
+                                <x-primary-button>{{ __('Demote') }}</x-primary-button>
+                            </form>
                         </td>
                     </tr>             
                 @endforeach

@@ -69,4 +69,21 @@ class CompanyController extends Controller
 
         return Redirect::route('tenant.company.edit')->with('status', 'manager-added');
     }
+
+    public function deleteManager(int $id)
+    {
+        $user = User::findOrFail($id);
+        $user->delete();
+
+        return Redirect::route('tenant.company.edit')->with('status', 'manager-deleted');
+    }
+
+    public function demoteManager(int $id)
+    {
+        $user = User::findOrFail($id);
+        $user->removeRole('manager');
+        $user->assignRole('employee');
+
+        return Redirect::route('tenant.company.edit')->with('status', 'manager-demoted');
+    }
 }
