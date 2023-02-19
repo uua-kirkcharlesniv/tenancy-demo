@@ -16,6 +16,7 @@ use App\Http\Controllers\Auth\VerifyEmailController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\Tenant\CompanyController;
 use App\Http\Controllers\Tenant\EmployeeController;
+use App\Http\Controllers\Tenant\GroupController;
 
 /*
 |--------------------------------------------------------------------------
@@ -106,5 +107,13 @@ Route::group([
         Route::delete('employees/{id}/delete', [EmployeeController::class, 'delete'])->name('employees.delete');
         Route::middleware('can:manage-company')->patch('employees/{id}/promote', [EmployeeController::class, 'promote'])->name('employees.promote');
         Route::post('employees/import', [EmployeeController::class, 'import'])->name('employees.import');
+    });
+
+    Route::name('groups.')->prefix('groups')->group(function () {
+        Route::get('', [GroupController::class, 'index'])->name('list');
+        Route::post('create', [GroupController::class, 'create'])->name('create');
+        Route::get('/{id}', [GroupController::class, 'view'])->name('view');
+        Route::delete('/{id}/delete', [GroupController::class, 'delete'])->name('delete');
+        Route::patch('/{id}/edit', [GroupController::class, 'edit'])->name('edit');
     });
 });
