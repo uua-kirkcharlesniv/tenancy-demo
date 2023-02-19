@@ -38,9 +38,9 @@
                             <form method="POST" action="{{ route('tenant.company.deleteManager', $manager->id) }}">
                                 @csrf
                                 @method('delete')
-                                <x-primary-button>{{ __('Delete') }}</x-primary-button>
+                                <x-primary-button class="bg-red-500">{{ __('Delete') }}</x-primary-button>
                             </form>
-
+<br>
                             <form method="POST" action="{{ route('tenant.company.demoteManager', $manager->id) }}">
                                 @csrf
                                 @method('patch')

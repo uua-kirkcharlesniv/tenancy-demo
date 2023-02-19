@@ -38,14 +38,14 @@
                             <form method="POST" action="{{ route('tenant.employees.delete', $manager->id) }}">
                                 @csrf
                                 @method('delete')
-                                <x-primary-button>{{ __('Delete') }}</x-primary-button>
+                                <x-primary-button class="bg-red-500">{{ __('Delete') }}</x-primary-button>
                             </form>
                             @can('manage-company')
                             <br>
                             <form method="POST" action="{{ route('tenant.employees.promote', $manager->id) }}">
                                 @csrf
                                 @method('patch')
-                                <x-primary-button class="bg-green-500">{{ __('Promote') }}</x-primary-button>
+                                <x-primary-button>{{ __('Promote') }}</x-primary-button>
                             </form>
                             @endcan
                         </td>
