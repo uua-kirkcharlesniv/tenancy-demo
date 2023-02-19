@@ -4,9 +4,11 @@
         <div class="flex justify-between h-16">
             <div class="flex">
                 <!-- Logo -->
-                <div class="shrink-0 flex items-center">
+                <div class="shrink-0 flex items-center " >
                     <a href="{{ route('tenant.dashboard') }}">
-                        {{ tenant('company') }}
+                        <div class="w-10 h-10 fill-current text-gray-500" >
+                            <x-application-logo/>
+                        </div>
                     </a>
                 </div>
 

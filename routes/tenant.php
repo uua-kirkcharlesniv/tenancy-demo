@@ -92,5 +92,6 @@ Route::group([
 
     Route::middleware('can:manage-company')->group(function () {
         Route::get('company', [CompanyController::class, 'edit'])->name('company.edit');
+        Route::patch('company/update-company', [CompanyController::class, 'updateCompany'])->name('company.update');
     });
 });
