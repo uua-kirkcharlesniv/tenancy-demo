@@ -14,6 +14,7 @@ use App\Http\Controllers\Auth\PasswordController;
 use App\Http\Controllers\Auth\PasswordResetLinkController;
 use App\Http\Controllers\Auth\VerifyEmailController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\Tenant\CompanyController;
 
 /*
 |--------------------------------------------------------------------------
@@ -44,11 +45,6 @@ Route::group([
     })->middleware(['auth', 'verified'])->name('dashboard');
 
     Route::middleware('guest')->group(function () {
-        // Route::get('register', [RegisteredUserController::class, 'create'])
-        //             ->name('register');
-
-        // Route::post('register', [RegisteredUserController::class, 'store']);
-
         Route::get('login', [AuthenticatedSessionController::class, 'create'])
             ->name('login');
 
@@ -92,5 +88,9 @@ Route::group([
 
         Route::post('logout', [AuthenticatedSessionController::class, 'destroy'])
             ->name('logout');
+    });
+
+    Route::middleware('can:manage-company')->group(function () {
+        Route::get('company', [CompanyController::class, 'edit'])->name('company.edit');
     });
 });
