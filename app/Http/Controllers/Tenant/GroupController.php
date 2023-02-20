@@ -47,9 +47,13 @@ class GroupController extends Controller
 
     }
 
-    public function delete()
+    public function delete(int $id)
     {
+        $group = Group::findOrFail($id);
+        $group->members()->detach();
+        $group->delete();
 
+        return Redirect::route('tenant.groups.index')->with('status', 'group-deleted');
     }
 
     public function edit()
