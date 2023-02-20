@@ -15,6 +15,7 @@ use App\Http\Controllers\Auth\PasswordResetLinkController;
 use App\Http\Controllers\Auth\VerifyEmailController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\Tenant\CompanyController;
+use App\Http\Controllers\Tenant\DepartmentController;
 use App\Http\Controllers\Tenant\EmployeeController;
 use App\Http\Controllers\Tenant\GroupController;
 
@@ -117,6 +118,15 @@ Route::group([
             Route::delete('/{id}/delete', [GroupController::class, 'delete'])->name('delete');
             Route::post('/{id}/update', [GroupController::class, 'update'])->name('update');
             Route::delete('/{groupId}/remove/{memberId}', [GroupController::class, 'removeFromGroup'])->name('removeFromGroup');
+        });
+
+        Route::name('departments.')->prefix('departments')->group(function () {
+            Route::get('', [DepartmentController::class, 'index'])->name('index');
+            Route::post('create', [DepartmentController::class, 'create'])->name('create');
+            Route::get('/{id}', [DepartmentController::class, 'view'])->name('view');
+            Route::delete('/{id}/delete', [DepartmentController::class, 'delete'])->name('delete');
+            Route::post('/{id}/update', [DepartmentController::class, 'update'])->name('update');
+            Route::delete('/{groupId}/remove/{memberId}', [DepartmentController::class, 'removeFromGroup'])->name('removeFromGroup');
         });
     });
 });

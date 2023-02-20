@@ -6,6 +6,7 @@ use App\Models\User;
 use Auth;
 use DB;
 use Livewire\Component;
+use Route;
 
 class EmployeeSelector extends Component
 {
@@ -18,10 +19,19 @@ class EmployeeSelector extends Component
 
     public function mount($group_id)
     {
+        
         $this->is_admin = Auth::user()->can('manage-groups');
-
+        
         if($group_id != null) {
-            $userIds = DB::table('group_user')->where('group_id', '=', $group_id)->pluck('user_id')->toArray();
+            $isGroup = str_contains(Route::getCurrentRoute()->uri(), "group") == true;
+            $userIds = [];
+
+            if($isGroup) {
+                $userIds = DB::table('group_user')->where('group_id', '=', $group_id)->pluck('user_id')->toArray();
+            } else {
+                $userIds = DB::table('department_user')->where('department_id', '=', $group_id)->pluck('user_id')->toArray();
+            }
+
             $this->alreadyChosenIds = array_merge($this->alreadyChosenIds, $userIds);
         }
     }
