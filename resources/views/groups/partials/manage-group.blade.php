@@ -34,7 +34,8 @@
                 </div>
             </div>
             <div>
-                <livewire:employee-selector />
+                <livewire:employee-selector 
+                :group_id="$data->id" />
             </div>
         </div>
     </form>

@@ -3,6 +3,7 @@
 namespace App\Http\Livewire;
 
 use App\Models\User;
+use Auth;
 use Livewire\Component;
 
 class EmployeeSelector extends Component
@@ -11,6 +12,16 @@ class EmployeeSelector extends Component
     public $leaders = [];
     public $members = [];
     public $ids = [];
+    public $is_admin = true;
+
+    public function mount($group_id)
+    {
+        $this->is_admin = Auth::user()->can('manage-groups');
+
+        if($group_id != null) {
+            
+        }
+    }
 
     public function render()
     {
