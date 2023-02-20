@@ -4,6 +4,7 @@ namespace App\Http\Livewire;
 
 use App\Models\User;
 use Auth;
+use DB;
 use Livewire\Component;
 
 class EmployeeSelector extends Component
@@ -13,13 +14,15 @@ class EmployeeSelector extends Component
     public $members = [];
     public $ids = [];
     public $is_admin = true;
+    public $alreadyChosenIds = [];
 
     public function mount($group_id)
     {
         $this->is_admin = Auth::user()->can('manage-groups');
 
         if($group_id != null) {
-            
+            $userIds = DB::table('group_user')->where('group_id', '=', $group_id)->pluck('user_id')->toArray();
+            $this->alreadyChosenIds = array_merge($this->alreadyChosenIds, $userIds);
         }
     }
 
@@ -27,7 +30,7 @@ class EmployeeSelector extends Component
     {
         $users = [];
 
-        $alreadyChosenIds = [];
+        $alreadyChosenIds = $this->alreadyChosenIds;
         foreach ($this->leaders as $leader) {
             array_push($alreadyChosenIds, $leader['id']);
         }
