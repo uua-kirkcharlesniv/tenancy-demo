@@ -76,4 +76,11 @@ class User extends Authenticatable
                     ->withPivot('is_leader')
                     ->withTimestamps();
     }
+
+    public function departments()
+    {
+        return $this->belongsToMany(Department::class)
+                    ->withPivot('is_leader')
+                    ->withTimestamps();
+    }
 }
