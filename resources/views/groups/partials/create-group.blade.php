@@ -34,7 +34,7 @@
                 </div>
             </div>
             <div>
-                <!-- TODO: Employee selection -->
+                <livewire:employee-selector />
             </div>
         </div>
     </form>

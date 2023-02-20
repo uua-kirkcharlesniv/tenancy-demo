@@ -92,28 +92,30 @@ Route::group([
             ->name('logout');
     });
 
-    Route::middleware('can:manage-company')->group(function () {
-        Route::get('company', [CompanyController::class, 'edit'])->name('company.edit');
-        Route::patch('company/update-company', [CompanyController::class, 'updateCompany'])->name('company.update');
-        Route::delete('company/delete', [CompanyController::class, 'destroy'])->name('company.destroy');
-        Route::post('company/manager/create', [CompanyController::class, 'createManager'])->name('company.addManager');
-        Route::delete('company/manager/{id}/delete', [CompanyController::class, 'deleteManager'])->name('company.deleteManager');
-        Route::patch('company/manager/{id}/demote', [CompanyController::class, 'demoteManager'])->name('company.demoteManager');
-    });
-
-    Route::middleware('can:manage-employees')->group(function () {
-        Route::get('employees', [EmployeeController::class, 'edit'])->name('employees.edit');
-        Route::post('employees/create', [EmployeeController::class, 'create'])->name('employees.create');
-        Route::delete('employees/{id}/delete', [EmployeeController::class, 'delete'])->name('employees.delete');
-        Route::middleware('can:manage-company')->patch('employees/{id}/promote', [EmployeeController::class, 'promote'])->name('employees.promote');
-        Route::post('employees/import', [EmployeeController::class, 'import'])->name('employees.import');
-    });
-
-    Route::name('groups.')->prefix('groups')->group(function () {
-        Route::get('', [GroupController::class, 'index'])->name('index');
-        Route::post('create', [GroupController::class, 'create'])->name('create');
-        Route::get('/{id}', [GroupController::class, 'view'])->name('view');
-        Route::delete('/{id}/delete', [GroupController::class, 'delete'])->name('delete');
-        Route::patch('/{id}/edit', [GroupController::class, 'edit'])->name('edit');
+    Route::middleware('auth')->group(function () {
+        Route::middleware('can:manage-company')->group(function () {
+            Route::get('company', [CompanyController::class, 'edit'])->name('company.edit');
+            Route::patch('company/update-company', [CompanyController::class, 'updateCompany'])->name('company.update');
+            Route::delete('company/delete', [CompanyController::class, 'destroy'])->name('company.destroy');
+            Route::post('company/manager/create', [CompanyController::class, 'createManager'])->name('company.addManager');
+            Route::delete('company/manager/{id}/delete', [CompanyController::class, 'deleteManager'])->name('company.deleteManager');
+            Route::patch('company/manager/{id}/demote', [CompanyController::class, 'demoteManager'])->name('company.demoteManager');
+        });
+    
+        Route::middleware('can:manage-employees')->group(function () {
+            Route::get('employees', [EmployeeController::class, 'edit'])->name('employees.edit');
+            Route::post('employees/create', [EmployeeController::class, 'create'])->name('employees.create');
+            Route::delete('employees/{id}/delete', [EmployeeController::class, 'delete'])->name('employees.delete');
+            Route::middleware('can:manage-company')->patch('employees/{id}/promote', [EmployeeController::class, 'promote'])->name('employees.promote');
+            Route::post('employees/import', [EmployeeController::class, 'import'])->name('employees.import');
+        });
+    
+        Route::name('groups.')->prefix('groups')->group(function () {
+            Route::get('', [GroupController::class, 'index'])->name('index');
+            Route::post('create', [GroupController::class, 'create'])->name('create');
+            Route::get('/{id}', [GroupController::class, 'view'])->name('view');
+            Route::delete('/{id}/delete', [GroupController::class, 'delete'])->name('delete');
+            Route::patch('/{id}/edit', [GroupController::class, 'edit'])->name('edit');
+        });
     });
 });
