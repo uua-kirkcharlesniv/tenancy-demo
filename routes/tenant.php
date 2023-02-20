@@ -115,7 +115,8 @@ Route::group([
             Route::post('create', [GroupController::class, 'create'])->name('create');
             Route::get('/{id}', [GroupController::class, 'view'])->name('view');
             Route::delete('/{id}/delete', [GroupController::class, 'delete'])->name('delete');
-            Route::patch('/{id}/edit', [GroupController::class, 'edit'])->name('edit');
+            Route::post('/{id}/update', [GroupController::class, 'update'])->name('update');
+            Route::delete('/{groupId}/remove/{memberId}', [GroupController::class, 'removeFromGroup'])->name('removeFromGroup');
         });
     });
 });
